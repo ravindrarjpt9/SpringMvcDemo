@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="
+        http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/mvc
+        http://www.springframework.org/schema/mvc/spring-mvc.xsd     
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd">
+	<!--It is to tell Spring MVC to scan classes under a certain package -->
+	<context:component-scan base-package="com.springmvc.controller" />
+	<context:component-scan base-package="com.springmvc.services" />
+
+	<!-- The <annotation-driven/> element does several things, including registering 
+		beans to support request processing with annotated controller methods. Note 
+		: Without <annotation-driven/>, the <resources/> elements will prevent any 
+		controller from being invoked. You don’t need an <annotation-driven/> element 
+		if you are not using resources elements. -->
+	<mvc:annotation-driven />
+
+	<!--The<resources/> element tells Spring MVC which static resources need 
+		to be served independently from the dispatcher servlet. . The first makes 
+		sure that all files in the /css directory will be visible -->
+	<mvc:resources mapping="/css/**" location="/css/" />
+	<!-- The second allows displaying of all .html files in the application 
+		directory. -->
+	<mvc:resources mapping="/*.html" location="/" />
+
+	<bean id="viewResolver"
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="/WEB-INF/jsp/" />
+		<property name="suffix" value=".jsp" />
+	</bean>
+</beans>
